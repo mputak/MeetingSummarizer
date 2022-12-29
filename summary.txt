@@ -1,0 +1,3 @@
+
+
+Hello world is a phrase used to greet someone or as a way to test a new computer program. It is a simple statement that is used to check that a program is working correctly.
