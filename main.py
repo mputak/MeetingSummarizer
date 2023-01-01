@@ -1,7 +1,7 @@
 import pyaudio
 import wave
 import tkinter as tk
-from tkinter import ttk
+import customtkinter
 import threading
 from textsummarization import TextSummarization
 from speechtotext import SpeechToText
@@ -9,34 +9,40 @@ from speechtotext import SpeechToText
 
 class AudioRecorder:
     def __init__(self, root):
-        self.root = root
-        self.root.title("Text Summarizer 2000")
 
         # Create the main frame
-        self.mainframe = ttk.Frame(self.root, padding="400 400 400 400")
-        self.mainframe.grid(column=0, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
-        self.mainframe.columnconfigure(0, weight=1)
-        self.mainframe.rowconfigure(0, weight=1)
-        self.s = ttk.Style().configure("TFrame", background="#1c1c1c")
+        customtkinter.set_appearance_mode("System")
+        customtkinter.set_default_color_theme("green")
+        self.root = root
+        self.root.geometry("720x400")
+        self.root.title("Text Summarizer 2000")
 
         # Create the label to display the current status
-        self.status_label = ttk.Label(self.mainframe, text="Stopped",
-                                      font=("Helvetica", 16), background="#1c1c1c", foreground="white")
-        self.status_label.grid(column=0, row=0, columnspan=2, pady=50)
+        self.status_label = customtkinter.CTkLabel(self.root, text="Stopped", font=("Helvetica", 20, "bold"))
+        self.status_label.grid(column=0, row=0, columnspan=3, pady=50)
 
         # Create the "Record" button
-        self.record_button = tk.Button(self.mainframe, text="Record", command=self.record,
-                                       font=("Helvetica", 14), bg='#98FF98', fg='#000000', borderwidth=0)
+        self.record_button = customtkinter.CTkButton(self.root, text="Record", command=self.record,
+                                                     font=("Helvetica", 16, "bold"),
+                                                     fg_color="#028296", hover_color="#01515e")
         self.record_button.grid(column=0, row=1, sticky=tk.W, padx=50)
 
+        # Create the "Pause" button
+        self.record_button = customtkinter.CTkButton(self.root, text="Pause", command=self.pause,
+                                                     font=("Helvetica", 16, "bold"),
+                                                     fg_color="#600296", hover_color="#3c015e")
+        self.record_button.grid(column=1, row=1, sticky=tk.W, padx=50)
+
         # Create the "Stop" button
-        self.stop_button = tk.Button(self.mainframe, text="Stop", command=self.stop,
-                                     font=("Helvetica", 14), bg='#ff726f', fg='#000000', borderwidth=0)
-        self.stop_button.grid(column=1, row=1, sticky=tk.W, padx=50)
+        self.stop_button = customtkinter.CTkButton(self.root, text="Stop", command=self.stop,
+                                                   font=("Helvetica", 16, "bold"),
+                                                   fg_color="#961602", hover_color="#5e0e01")
+        self.stop_button.grid(column=2, row=1, sticky=tk.W, padx=50)
 
         # Create the "Summarize" button
-        self.summarize_button = tk.Button(self.mainframe, text="Summarize!",
-                                          command=self.summarize, font=("Helvetica", 14))
+        self.summarize_button = customtkinter.CTkButton(self.root, text="Summarize!",
+                                                        command=self.summarize, font=("Helvetica", 16, "bold"),
+                                                        fg_color="#389602", hover_color="#235e01")
 
         # Initialize PyAudio
         self.p = pyaudio.PyAudio()
@@ -55,7 +61,7 @@ class AudioRecorder:
 
     def record(self):
         # Update the status label to show that recording has started
-        self.status_label.config(text="Recording")
+        self.status_label.configure(text="Recording")
 
         # Set the recording flag to True
         self.recording = True
@@ -77,10 +83,14 @@ class AudioRecorder:
             data = self.stream.read(self.CHUNK)
             self.samples.append(data)
 
+    def pause(self):
+        self.recording = False
+        self.status_label.configure(text="Paused")
+
     def stop(self):
         # Update the status label to show that recording has stopped
-        self.status_label.config(text="Stopped")
-        self.summarize_button.grid(column=0, row=2, columnspan=2, sticky=(tk.W, tk.E), pady=50)
+        self.status_label.configure(text="Stopped")
+        self.summarize_button.grid(column=1, row=2, sticky=(tk.W, tk.E), pady=50)
         # Set the recording flag to False
         self.recording = False
 
@@ -104,8 +114,9 @@ class AudioRecorder:
             print("Too much words. The limit is 1500 words. Contact me if you would like to use full program features.")
 
 
-# Create the root window
-root = tk.Tk()
+# Instantiate a CTk module
+root = customtkinter.CTk()
+
 # Create the audio recorder GUI
 audio_recorder = AudioRecorder(root)
 
