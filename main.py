@@ -15,6 +15,7 @@ class AudioRecorder:
         customtkinter.set_default_color_theme("green")
         self.root = root
         self.root.geometry("720x400")
+        self.root.eval('tk::PlaceWindow . center')
         self.root.title("Text Summarizer 2000")
 
         # Create the label to display the current status
