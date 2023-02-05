@@ -109,10 +109,9 @@ class AudioRecorder:
 
     def summarize(self):
         self.text = SpeechToText().output
-        if self.text.count(" ") + 1 < 1500:
-            TextSummarization(self.text)
-        else:
-            print("Too much words. The limit is 1500 words. Contact me if you would like to use full program features.")
+        self.temperature = 0.2
+        TextSummarization(self.text, self.temperature)
+
 
 
 # Instantiate a CTk module
