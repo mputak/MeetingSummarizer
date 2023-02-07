@@ -2,7 +2,7 @@ import openai
 import os
 
 
-openai.api_key = os.environ.get("OPEN_AI_API_KEY")
+openai.api_key = "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"
 
 
 class TextSummarization:
@@ -14,8 +14,9 @@ class TextSummarization:
 
         # Generate a summary
         completion = openai.Completion.create(engine=self.model_engine, prompt=self.prompt,
-                                              max_tokens=4000, n=1, stop=None, temperature=self.temperature)
+                                              max_tokens=2000, n=1, stop=None, temperature=self.temperature)
         summary = completion.choices[0].text
 
         with open("summary.txt", "w") as file:
             file.write(summary)
+        print("Done")
