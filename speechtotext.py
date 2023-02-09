@@ -1,6 +1,7 @@
 # import speech_recognition as sr
 import whisper
 
+
 class SpeechToText:
     def __init__(self):
 
