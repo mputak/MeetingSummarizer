@@ -15,6 +15,9 @@ class TextSummarization:
         self.temperature = temp
         self.chunks = self.break_up_file_to_chunks(text)
         self.prompt_responses = self.summarize(self.chunks)
+        self.summary = self.consolidate(self.prompt_responses)
+
+        self.write_to_file(self.summary)
         # self.prompt = f"Summarize the following text: {text}"
         # self.temperature = temp
 
@@ -69,7 +72,12 @@ class TextSummarization:
                                             temperature=self.temperature,
                                             frequency_penalty=0,
                                             presence_penalty=0)
+        return response.choices[0].text
 
+    @staticmethod
+    def write_to_file(summarized_text):
+        with open("summary.txt", "w") as file:
+            file.write(summarized_text)
 
 TextSummarization("The speaker enjoys playing League of Legends,"
                   " typically as an attack damage carry with their girlfriend as support.", 0.2)
