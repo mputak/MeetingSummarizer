@@ -2,10 +2,11 @@ import openai
 import nltk
 # nltk.download('punkt')
 from nltk.tokenize import word_tokenize
+from config import api_key_openai
 import os
 
 
-openai.api_key = "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"
+openai.api_key = api_key_openai
 
 
 class TextSummarization:
