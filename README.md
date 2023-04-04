@@ -6,7 +6,12 @@ The purpose of the project is to give the user ability to fully focus on the mee
 
 ## How to use:
 
-1. ```pip install -r requirements.txt``` in your working directory
+1. Run the following commands: 
+```python
+pip install -r requirements.txt
+pip install git+https://github.com/openai/whisper.git
+
+```
 2. export your OpenAI API Key through terminal: ```export OPEN_AI_API_KEY=YOUR_API_KEY```
 3. make sure you have your microphone connected and run ```main.py```
 4. record your meeting by pressing the **start** button

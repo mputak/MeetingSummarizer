@@ -79,6 +79,3 @@ class TextSummarization:
     def write_to_file(summarized_text):
         with open("summary.txt", "w") as file:
             file.write(summarized_text)
-
-TextSummarization("The speaker enjoys playing League of Legends,"
-                  " typically as an attack damage carry with their girlfriend as support.", 0.2)

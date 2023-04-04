@@ -1,3 +1,4 @@
 customtkinter==5.0.5
 nltk==3.8.1
 PyAudio==0.2.13
+openai==0.27.3
